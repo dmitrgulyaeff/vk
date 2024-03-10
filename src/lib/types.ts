@@ -47,14 +47,9 @@ export const GroupSchema = z.object({
   friends: z.array(UserSchema).optional(),
 });
 
-export const GetGroupsValidResponseSchema = z.object({
+export const isValidResponseSchema = z.object({
   result: z.literal(1),
   data: z.array(GroupSchema),
-});
-
-export const GetGroupsInvalidResponseSchema = z.object({
-  result: z.literal(0),
-  data: z.array(GroupSchema).optional(),
 });
 
 export const GetGroupsResponseSchema = z.object({
@@ -66,7 +61,7 @@ export const GetGroupsResponseSchema = z.object({
   type ZUser = z.infer<typeof UserSchema>;
   type ZGroup = z.infer<typeof GroupSchema>;
   type ZGetGroupsResponse = z.infer<typeof GetGroupsResponseSchema>;
-  type ZGetGroupsValidResponse = z.infer<typeof GetGroupsValidResponseSchema>
+  export type ZValidResponseSchema = z.infer<typeof isValidResponseSchema>
 
 // check schemas
   type test_ZUser_equal_User = Expect<Equal<ZUser, User>>

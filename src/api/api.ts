@@ -1,6 +1,6 @@
 import { ENDPOINT } from '../config';
 import { z } from 'zod';
-import { GetGroupsValidResponseSchema } from '../lib/types';
+import { isValidResponseSchema } from '../lib/types';
 import { delay } from 'msw';
 
 export async function getGroupsResponse() {
@@ -8,9 +8,9 @@ export async function getGroupsResponse() {
     const req = await fetch(ENDPOINT);
     const data = await req.json();
 
-    const validatedData = GetGroupsValidResponseSchema.parse(data);
+    const validatedData = isValidResponseSchema.parse(data);
 
-    return validatedData;
+    return validatedData.data;
   } catch (err) {
     if (err instanceof z.ZodError) {
       console.error(err.issues);
