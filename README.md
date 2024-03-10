@@ -1,11 +1,6 @@
-# Effector React Vite
+# VK
 
-[Edit on StackBlitz ⚡️](https://stackblitz.com/edit/effector-react)
-
-In the box:
-
-- effector v22
-- patronum v1
-- react v18
-- vite v4
-- typescript v4.9.5
+Готово:
+- мок сервер по эндпоинту /groups с помощьб mws
+- валидация получения данных с помощью zod
+- использован effector
