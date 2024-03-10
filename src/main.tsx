@@ -1,14 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { App } from './application';
+import { App } from './App/App';
 import './index.css';
+import { enableMocking } from './mocks/enableMocking';
 
 const container = document.querySelector('#root') as HTMLElement;
 
 const root = ReactDOM.createRoot(container);
 
-root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
-);
+enableMocking().then(() => {
+  root.render(<App />);
+});

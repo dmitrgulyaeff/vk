@@ -1,16 +1,25 @@
 import { useUnit } from 'effector-react';
 import viteLogo from '/vite.svg';
-import reactLogo from './assets/react.svg';
-import effectorLogo from './assets/effector.png'
-import './application.css';
-import { $counter, buttonClicked } from './model';
+import reactLogo from '../assets/react.svg';
+import effectorLogo from '../assets/effector.png';
+import './App.css';
+import { $counter, buttonClicked, $data, pageMounted } from './model';
+import { useEffect } from 'react';
 
 export function App() {
-  const [counter, handleClick] = useUnit([$counter, buttonClicked]);
+  // Используем useStore для подписки на изменения в хранилище $counter
+  const counter = useUnit($counter);
+  // Используем useStore для подписки на изменения в хранилище $data
+  const data = useUnit($data);
+
+  useEffect(() => {
+    pageMounted();
+  }, []);
 
   return (
     <div className="App">
       <div>
+        <h1>{data}</h1>
         <a href="https://effector.dev" target="_blank">
           <img
             src={effectorLogo}
@@ -27,7 +36,7 @@ export function App() {
       </div>
       <h1>Effector + Vite + React</h1>
       <div className="card">
-        <button onClick={handleClick}>count is {counter}</button>
+        <button onClick={() => buttonClicked()}>count is {counter}</button>
         <p>
           Edit <code>src/application.tsx</code> and save to test HMR
         </p>
