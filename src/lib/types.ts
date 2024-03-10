@@ -14,21 +14,21 @@ type Equal<A, B> = (<T>() => T extends A ? 1 : 2) extends <T>() => T extends B
 : false;
 
 
-export type GetGroupsResponse = {
+export type TGetGroupsResponse = {
   result: 1 | 0;
-  data?: Group[];
+  data?: TGroup[];
 };
 
-export type Group = {
+export type TGroup = {
   id: number;
   name: string;
   closed: boolean;
   avatar_color?: string;
   members_count: number;
-  friends?: User[];
+  friends?: TUser[];
 };
 
-export type User = {
+export type TUser = {
   first_name: string;
   last_name: string;
 };
@@ -64,6 +64,6 @@ export const GetGroupsResponseSchema = z.object({
   export type ZValidResponseSchema = z.infer<typeof isValidResponseSchema>
 
 // check schemas
-  type test_ZUser_equal_User = Expect<Equal<ZUser, User>>
-  type test_ZGroup_equal_Group = Expect<Equal<ZGroup, Group>>
-  type test_ZGetGroupsResponse_equal_GetGroupsResponse = Expect<Equal<ZGetGroupsResponse, GetGroupsResponse>>
+  type test_ZUser_equal_User = Expect<Equal<ZUser, TUser>>
+  type test_ZGroup_equal_Group = Expect<Equal<ZGroup, TGroup>>
+  type test_ZGetGroupsResponse_equal_GetGroupsResponse = Expect<Equal<ZGetGroupsResponse, TGetGroupsResponse>>

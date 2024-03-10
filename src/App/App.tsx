@@ -1,7 +1,8 @@
 import { useList } from 'effector-react';
-import './App.css';
+import styles from './App.module.css';
 import { $data, pageMounted } from './model';
 import { useEffect } from 'react';
+import { Group } from '../components/Group/Group';
 
 export function App() {
   useEffect(() => {
@@ -9,8 +10,13 @@ export function App() {
   }, []);
 
   return (
-    <div className="App">
-      {useList($data, group => group.id)}
+    <div className={styles.App}>
+      <div className={styles.groups}>
+
+      {useList($data, (group) => (
+        <Group group={group}/>
+        ))}
+        </div>
     </div>
   );
 }
