@@ -1,12 +1,17 @@
-import { createEffect, createEvent, createStore, sample } from 'effector';
+import {
+  UnitValue,
+  createEffect,
+  createEvent,
+  createStore,
+  sample,
+} from 'effector';
 import { getGroupsResponse } from '../api/api';
-import { ZValidResponseSchema } from '../lib/types';
+import { TGroup, ZValidResponseSchema } from '../lib/types';
 import randomSwapArrElements from '../utils/randomSwapArrElements';
 import { debug } from 'patronum';
 
 // Создаем событие для монтирования страницы
 export const pageMounted = createEvent();
-
 
 // Создаем эффект для загрузки данных
 export const fetchData = createEffect(async () => {
@@ -21,5 +26,8 @@ export const $data = createStore<ZValidResponseSchema['data']>([]).on(
 );
 
 sample({ clock: pageMounted, target: [fetchData] });
+
+export const $displayedData = createStore<TGroup[]>([]);
+
 
 debug($data);
