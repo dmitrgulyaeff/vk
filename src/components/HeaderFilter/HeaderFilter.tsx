@@ -3,45 +3,44 @@ import { $data } from '../../App/model';
 import {
   updateAvatarSelect,
   updateFriendsSelect,
-  updatePrivetSelect,
+  updatePrivateSelect,
 } from './model';
 
 export default function HeaderFilter() {
   const data = useUnit($data);
 
-  const handleUpdatePrivetSelect = (
+  const handleUpdatePrivateSelect = (
     event: React.ChangeEvent<HTMLSelectElement>
   ) => {
     const v = event.target.value;
-    // "" | "0" | "1"
-    if (!event.target.value) updatePrivetSelect(null)
-    // "0" | "1"
-    updatePrivetSelect(!!+v)
+    if (v === '0') updatePrivateSelect(false);
+    else if (v === '1') updatePrivateSelect(true);
+    else if (v === '') updatePrivateSelect(null);
+    else throw Error('invalid value, pls give "0" | "1" | ""');
   };
 
   const handleUpdateFriendsSelect = (
     event: React.ChangeEvent<HTMLSelectElement>
   ) => {
     const v = event.target.value;
-    // "" | "0" | "1"
-    if (!event.target.value) updateFriendsSelect(null)
-    // "0" | "1"
-    updateFriendsSelect(!!+v)
+    if (v === '0') updateFriendsSelect(false);
+    else if (v === '1') updateFriendsSelect(true);
+    else if (v === '') updateFriendsSelect(null);
+    else throw Error('invalid value, pls give "0" | "1" | ""');
   };
 
   const handleUpdateAvatarSelect = (
     event: React.ChangeEvent<HTMLSelectElement>
   ) => {
-    const v = event.target.value
-    if (!v) updateAvatarSelect(null)
-    updateAvatarSelect(v);
+    const v = event.target.value;
+    updateAvatarSelect(v || null)
   };
 
   return (
     <header>
       <label>
         Закрытая:
-        <select name="type" onChange={handleUpdatePrivetSelect}>
+        <select name="type" onChange={handleUpdatePrivateSelect}>
           <option value="">без разницы</option>
           <option value="1">да</option>
           <option value="0">нет</option>

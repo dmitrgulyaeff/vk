@@ -5,33 +5,29 @@ import { debug } from 'patronum';
 export const $filter = createStore<TGroupFilter>({
   avatarColor: null,
   closed: null,
-  haveFriends: null
+  haveFriends: null,
 });
 
 function getUpdatedFilter<T extends Record<string, unknown>, K extends keyof T>(
   filter: T,
   key: K,
   value: T[K]
-){
+) {
   const newFilter = { ...filter };
-  if (value === undefined) {
-    delete newFilter[key];
-  } else {
-    newFilter[key] = value;
-  }
+  newFilter[key] = value;
   return newFilter;
 }
 
 // по типу приватности
-export const updatePrivetSelect = createEvent<TGroupFilter['closed']>();
+export const updatePrivateSelect = createEvent<TGroupFilter['closed']>();
 
-export const $privetFilter = createStore<TGroupFilter['closed']>(null).on(
-  updatePrivetSelect,
+export const $privateFilter = createStore<TGroupFilter['closed']>(null).on(
+  updatePrivateSelect,
   (_, val) => val
 );
 
 sample({
-  clock: $privetFilter,
+  clock: $privateFilter,
   source: $filter,
 
   fn: (filter, newValue) => getUpdatedFilter(filter, 'closed', newValue),
@@ -42,9 +38,10 @@ sample({
 // по цвету аватарки
 export const updateAvatarSelect = createEvent<TGroupFilter['avatarColor']>();
 
-export const $avatarFilter = createStore<TGroupFilter['avatarColor']>(
-  null
-).on(updateAvatarSelect, (_, val) => val);
+export const $avatarFilter = createStore<TGroupFilter['avatarColor']>(null).on(
+  updateAvatarSelect,
+  (_, val) => val
+);
 
 sample({
   clock: $avatarFilter,
@@ -58,9 +55,10 @@ sample({
 // по наличию друзей в группе
 export const updateFriendsSelect = createEvent<TGroupFilter['haveFriends']>();
 
-export const $friendsFilter = createStore<TGroupFilter['haveFriends']>(
-  null
-).on(updateFriendsSelect, (_, val) => val);
+export const $friendsFilter = createStore<TGroupFilter['haveFriends']>(null).on(
+  updateFriendsSelect,
+  (_, val) => val
+);
 
 sample({
   clock: $friendsFilter,
