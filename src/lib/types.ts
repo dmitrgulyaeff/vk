@@ -1,18 +1,23 @@
 import { z } from 'zod';
 
 // utils
+type ExcludeUndefined<T> = T extends undefined ? never : T;
+
+type Prettify<T> = {
+  [K in keyof T]: T[K];
+} & {};
+
 type Expect<T extends true> = (<T>() => T extends T ? 1 : 2) extends <
-T
+  T
 >() => T extends true ? 1 : 2
-? true
-: false;
+  ? true
+  : false;
 
 type Equal<A, B> = (<T>() => T extends A ? 1 : 2) extends <T>() => T extends B
-? 1
-: 2
-? true
-: false;
-
+  ? 1
+  : 2
+  ? true
+  : false;
 
 export type TGetGroupsResponse = {
   result: 1 | 0;
@@ -58,12 +63,20 @@ export const GetGroupsResponseSchema = z.object({
 });
 
 // Inferred types from Zod schemas
-  type ZUser = z.infer<typeof UserSchema>;
-  type ZGroup = z.infer<typeof GroupSchema>;
-  type ZGetGroupsResponse = z.infer<typeof GetGroupsResponseSchema>;
-  export type ZValidResponseSchema = z.infer<typeof isValidResponseSchema>
+type ZUser = z.infer<typeof UserSchema>;
+type ZGroup = z.infer<typeof GroupSchema>;
+type ZGetGroupsResponse = z.infer<typeof GetGroupsResponseSchema>;
+export type ZValidResponseSchema = z.infer<typeof isValidResponseSchema>;
 
 // check schemas
-  type test_ZUser_equal_User = Expect<Equal<ZUser, TUser>>
-  type test_ZGroup_equal_Group = Expect<Equal<ZGroup, TGroup>>
-  type test_ZGetGroupsResponse_equal_GetGroupsResponse = Expect<Equal<ZGetGroupsResponse, TGetGroupsResponse>>
+type test_ZUser_equal_User = Expect<Equal<ZUser, TUser>>;
+type test_ZGroup_equal_Group = Expect<Equal<ZGroup, TGroup>>;
+type test_ZGetGroupsResponse_equal_GetGroupsResponse = Expect<
+  Equal<ZGetGroupsResponse, TGetGroupsResponse>
+>;
+
+export type TGroupFilter = Prettify<
+    { avatarColor: string  | null } 
+  & { closed:      boolean | null } 
+  & { haveFriends: boolean | null }
+>;

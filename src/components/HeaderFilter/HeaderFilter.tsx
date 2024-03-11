@@ -12,19 +12,29 @@ export default function HeaderFilter() {
   const handleUpdatePrivetSelect = (
     event: React.ChangeEvent<HTMLSelectElement>
   ) => {
-    updatePrivetSelect(event.target.value as '' | 'true' | 'false');
+    const v = event.target.value;
+    // "" | "0" | "1"
+    if (!event.target.value) updatePrivetSelect(null)
+    // "0" | "1"
+    updatePrivetSelect(!!+v)
   };
 
   const handleUpdateFriendsSelect = (
     event: React.ChangeEvent<HTMLSelectElement>
   ) => {
-    updateFriendsSelect(event.target.value as '0' | '1' | '');
+    const v = event.target.value;
+    // "" | "0" | "1"
+    if (!event.target.value) updateFriendsSelect(null)
+    // "0" | "1"
+    updateFriendsSelect(!!+v)
   };
 
   const handleUpdateAvatarSelect = (
     event: React.ChangeEvent<HTMLSelectElement>
   ) => {
-    updateAvatarSelect(event.target.value);
+    const v = event.target.value
+    if (!v) updateAvatarSelect(null)
+    updateAvatarSelect(v);
   };
 
   return (
@@ -33,8 +43,8 @@ export default function HeaderFilter() {
         Закрытая:
         <select name="type" onChange={handleUpdatePrivetSelect}>
           <option value="">без разницы</option>
-          <option value="true">да</option>
-          <option value="false">нет</option>
+          <option value="1">да</option>
+          <option value="0">нет</option>
         </select>
       </label>
       <label>

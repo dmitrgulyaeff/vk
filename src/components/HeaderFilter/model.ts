@@ -1,26 +1,74 @@
-import { createEvent, createStore } from 'effector';
-import { TGroup } from '../../lib/types';
+import { createEvent, createStore, sample } from 'effector';
+import { TGroupFilter } from '../../lib/types';
 import { debug } from 'patronum';
 
-export const updatePrivetSelect = createEvent<"true" | "" | "false">();
+export const $filter = createStore<TGroupFilter>({
+  avatarColor: null,
+  closed: null,
+  haveFriends: null
+});
 
-export const $privetFilter = createStore<"true" | "" | "false">("").on(
+function getUpdatedFilter<T extends Record<string, unknown>, K extends keyof T>(
+  filter: T,
+  key: K,
+  value: T[K]
+){
+  const newFilter = { ...filter };
+  if (value === undefined) {
+    delete newFilter[key];
+  } else {
+    newFilter[key] = value;
+  }
+  return newFilter;
+}
+
+// по типу приватности
+export const updatePrivetSelect = createEvent<TGroupFilter['closed']>();
+
+export const $privetFilter = createStore<TGroupFilter['closed']>(null).on(
   updatePrivetSelect,
   (_, val) => val
 );
 
-export const updateAvatarSelect = createEvent<TGroup["avatar_color"]>("");
+sample({
+  clock: $privetFilter,
+  source: $filter,
 
-export const $avatarFilter = createStore<TGroup["avatar_color"]>("").on(
-  updateAvatarSelect,
-  (_, val) => val
-);
+  fn: (filter, newValue) => getUpdatedFilter(filter, 'closed', newValue),
 
-export const updateFriendsSelect = createEvent<"0" | "" | "1">("");
+  target: $filter,
+});
 
-export const $friendsFilter = createStore<"0" | "" | "1">("").on(
-  updateFriendsSelect,
-  (_, val) => val
-);
+// по цвету аватарки
+export const updateAvatarSelect = createEvent<TGroupFilter['avatarColor']>();
 
-debug($privetFilter)
+export const $avatarFilter = createStore<TGroupFilter['avatarColor']>(
+  null
+).on(updateAvatarSelect, (_, val) => val);
+
+sample({
+  clock: $avatarFilter,
+  source: $filter,
+
+  fn: (filter, newValue) => getUpdatedFilter(filter, 'avatarColor', newValue),
+
+  target: $filter,
+});
+
+// по наличию друзей в группе
+export const updateFriendsSelect = createEvent<TGroupFilter['haveFriends']>();
+
+export const $friendsFilter = createStore<TGroupFilter['haveFriends']>(
+  null
+).on(updateFriendsSelect, (_, val) => val);
+
+sample({
+  clock: $friendsFilter,
+  source: $filter,
+
+  fn: (filter, newValue) => getUpdatedFilter(filter, 'haveFriends', newValue),
+
+  target: $filter,
+});
+
+debug($filter);
