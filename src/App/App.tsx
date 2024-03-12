@@ -1,9 +1,9 @@
-import { useList, useUnit } from 'effector-react';
-import styles from './App.module.css';
-import { $data, $displayedData, pageMounted } from './model';
+import { useList } from 'effector-react';
 import { useEffect } from 'react';
 import { Group } from '../components/Group/Group';
-import HeaderFilter from '../components/HeaderFilter/HeaderFilter';
+import {HeaderFilter} from '../components/HeaderFilter/HeaderFilter';
+import styles from './App.module.css';
+import { $displayedData, pageMounted } from './model';
 
 export function App() {
   useEffect(() => {
@@ -11,13 +11,13 @@ export function App() {
   }, []);
 
   return (
-    <div className={styles.App}>
+    <main className={styles.App}>
       <HeaderFilter />
-      <div className={styles.groups}>
+      <ul className={styles.groups}>
         {useList($displayedData, (group) => (
-          <Group key={group.id} group={group} />
+            <Group key={group.id} group={group} />
         ))}
-      </div>
-    </div>
+      </ul>
+    </main>
   );
 }

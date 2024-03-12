@@ -6,7 +6,7 @@ import {
   updatePrivateSelect,
 } from './model';
 
-export default function HeaderFilter() {
+export function HeaderFilter() {
   const data = useUnit($data);
 
   const handleUpdatePrivateSelect = (

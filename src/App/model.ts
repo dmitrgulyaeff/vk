@@ -1,48 +1,43 @@
-import {
-  UnitValue,
-  createEffect,
-  createEvent,
-  createStore,
-  sample,
-} from 'effector';
-import { getGroupsResponse } from '../api/api';
-import { TGroup, ZValidResponseSchema } from '../lib/types';
-import randomSwapArrElements from '../utils/randomSwapArrElements';
+import { createEffect, createEvent, createStore, sample } from 'effector';
 import { debug } from 'patronum';
+import { getGroupsResponse } from '../api/api';
 import { $filter } from '../components/HeaderFilter/model';
+import { TGroup } from '../lib/types';
+import { filterGroups } from '../utils/filterGroups';
+import randomSwapArrElements from '../utils/randomSwapArrElements';
 
 // Создаем событие для монтирования страницы
 export const pageMounted = createEvent();
 
 // Создаем эффект для загрузки данных
-export const fetchData = createEffect(async () => {
+export const fetchDataFx = createEffect(async () => {
   const res = await getGroupsResponse();
   return randomSwapArrElements(res);
 });
 
+sample({ clock: pageMounted, target: fetchDataFx });
+
 // Создаем хранилище для данных
-export const $data = createStore<ZValidResponseSchema['data']>([]).on(
-  fetchData.doneData,
+export const $data = createStore<TGroup[]>([]).on(
+  fetchDataFx.doneData,
   (_, result) => result
-);
-
-sample({ clock: pageMounted, target: [fetchData] });
-
-export const $displayedData = createStore<TGroup[]>([]).on($data, (_, v)=> v);
+  );
+  
+// Создаем хранилище для данных для отображения
+export const $displayedData = createStore<TGroup[]>([]);
 
 sample({
   clock: $filter,
   source: $data,
-  fn: (data, f) => {
-    const newData = data.filter(group => {
-      if (f.avatarColor !== null && f.avatarColor != "" + group.avatar_color) return false
-      if (f.closed !== null  && f.closed != group.closed) return false
-      if (f.haveFriends !== null  && !group.friends?.length) return false
-      return true
-    })
-    return newData
-  },
-  target: $displayedData
-})
+  fn: (data, filter) => filterGroups({ data, filter }),
+  target: $displayedData,
+});
 
-debug($displayedData)
+sample({
+  clock: $data,
+  source: $filter,
+  fn: (filter, data) => filterGroups({ data, filter }),
+  target: $displayedData,
+});
+
+debug($displayedData);

@@ -14,8 +14,8 @@ export async function getGroupsResponse() {
   } catch (err) {
     if (err instanceof z.ZodError) {
       console.error(err.issues);
-    } else {
-      console.error(err);
+    } else if (err instanceof TypeError ){
+      console.error(err.message);
     }
     await delay(100)
     return getGroupsResponse()

@@ -15,8 +15,7 @@
   background-color: rgba(232, 208, 176, 0.4);
 }
 
-
-.group__avatar{
+.group__avatar {
   border-radius: 50%;
   scale: 1.2;
   grid-area: avatar;
@@ -33,10 +32,32 @@
 }
 .group__friends {
   grid-area: friends;
+  flex-direction: column;
 }
 
-
-.group__avatar, .group__name, .group__type, .group__members, .group__friends{
+.group__avatar,
+.group__name,
+.group__type,
+.group__members,
+.group__friends {
   margin: 0;
-  display: flex
+  display: flex;
+}
+
+.group__name,
+.group__type,
+.group__members {
+  padding-left: 1.2em;
+}
+
+.group__show-friends {
+  width: 100%;
+}
+
+.group__friends-list {
+  display: flex;
+  flex-direction: column;
+}
+.group__friend {
+  display: inline;
 }
