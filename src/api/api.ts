@@ -14,10 +14,10 @@ export async function getGroupsResponse() {
   } catch (err) {
     if (err instanceof z.ZodError) {
       console.error(err.issues);
-    } else if (err instanceof TypeError ){
+    } else if (err instanceof TypeError) {
       console.error(err.message);
     }
-    await delay(100)
-    return getGroupsResponse()
+    await delay(100);
+    return getGroupsResponse();
   }
 }

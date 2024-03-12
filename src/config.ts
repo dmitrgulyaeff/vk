@@ -1,1 +1,1 @@
-export const ENDPOINT = "/groups"
+export const ENDPOINT = '/groups';
