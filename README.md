@@ -54,9 +54,3 @@ npm run build
 ```bash
 npm run preview
 ```
-
-### Использование скрипта для развертывания в Docker
-```bash
-sh ./build_and_run.sh
-```
-
