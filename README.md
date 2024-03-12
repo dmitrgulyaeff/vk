@@ -13,13 +13,15 @@
 - **CSS Modules**: Для изоляции стилей компонентов.
 - **Docker**: Для упаковки приложения в контейнер для упрощения развертывания.
 
+## Ознакомиться онлайн: https://vk-sigma.vercel.app
+![](https://i.gifer.com/origin/68/68f87b37ccfde22769262c7cdc7b2b0b_w200.gif)
+
 ## Развернуть Docker контейнер
 ### Клонирование репозитория
 
 ```bash 
 git clone https://github.com/dmitrgulyaeff/vk.git
 ```
-
 
 ### Старт скрипта
 ```bash 
