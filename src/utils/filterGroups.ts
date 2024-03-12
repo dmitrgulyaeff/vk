@@ -20,11 +20,11 @@ const combinedFilter = (group: TGroup, filter: TGroupFilter) => {
 };
 
 export function filterGroups({
-  data,
+  groups,
   filter,
 }: {
-  data: TGroup[];
+  groups: TGroup[];
   filter: TGroupFilter;
 }) {
-  return data.filter((group) => combinedFilter(group, filter));
+  return groups.filter((group) => combinedFilter(group, filter));
 }

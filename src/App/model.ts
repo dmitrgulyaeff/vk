@@ -16,29 +16,36 @@ import randomSwapArrElements from '../utils/randomSwapArrElements';
 export const pageMounted = createEvent();
 
 // Создаем эффект для загрузки данных
-export const fetchDataFx = createEffect(async () => {
+export const fetchGroupsFx = createEffect(async () => {
   const res = await getGroupsResponse();
   return randomSwapArrElements(res);
 });
 
 // Инициализация загрузки данных при монтировании страницы
-sample({ clock: pageMounted, target: fetchDataFx });
+sample({ clock: pageMounted, target: fetchGroupsFx });
 
 // Создаем хранилище для данных
-export const $data = createStore<TGroup[]>([]).on(
-  fetchDataFx.doneData,
+export const $groups = createStore<TGroup[]>([]).on(
+  fetchGroupsFx.doneData,
   (_, result) => result
 );
 
+// Создаём хранилище с уникальными цветами для фильтра выбора цвета группы
+export const $uniqGroupsColors = $groups.map((groups) => {
+  const set = new Set(groups.map((group) => group.avatar_color));
+  set.delete(undefined);
+  return Array.from(set) as string[]
+});
+
 // Создаем хранилище для данных для отображения
-export const $displayedData = createStore<TGroup[]>([]);
+export const $displayedGroups = createStore<TGroup[]>([]);
 
 // Фильтрация данных отображения при изменении фильтра или данных
 sample({
-  clock: merge([$filter, $data]),
-  source: { data: $data, filter: $filter },
+  clock: merge([$filter, $groups]),
+  source: { groups: $groups, filter: $filter },
   fn: filterGroups,
-  target: $displayedData,
+  target: $displayedGroups,
 });
 
-debug($displayedData);
+debug($displayedGroups);

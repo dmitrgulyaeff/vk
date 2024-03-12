@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import { Group } from '../components/Group/Group';
 import {HeaderFilter} from '../components/HeaderFilter/HeaderFilter';
 import styles from './App.module.css';
-import { $displayedData, pageMounted } from './model';
+import { $displayedGroups, pageMounted } from './model';
 
 export function App() {
   useEffect(() => {
@@ -14,7 +14,7 @@ export function App() {
     <main className={styles.App}>
       <HeaderFilter />
       <ul className={styles.groups}>
-        {useList($displayedData, (group) => (
+        {useList($displayedGroups, (group) => (
             <Group key={group.id} group={group} />
         ))}
       </ul>
