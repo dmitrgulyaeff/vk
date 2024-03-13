@@ -3,8 +3,8 @@ import { TGroupFilter } from "../../lib/types";
 import { debug } from "patronum";
 
 const createFilterStore = <T>(updateEvent: EventCallable<T>, initialValue: T) => {
-  const store = createStore<T>(initialValue).on(updateEvent, (_, val) => val);
-  return store;
+  const $store = createStore<T>(initialValue).on(updateEvent, (_, val) => val);
+  return $store;
 };
 
 // События для обновления фильтров

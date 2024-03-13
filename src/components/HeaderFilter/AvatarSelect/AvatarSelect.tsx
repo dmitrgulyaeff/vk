@@ -1,13 +1,15 @@
-import { useList } from 'effector-react';
+import { useList, useUnit } from 'effector-react';
 import { $uniqGroupsColors } from '../../../App/model';
 import { updateAvatarSelect } from '../model';
 
 export function AvatarSelect() {
+  const updateAvatarSelectEvent = useUnit(updateAvatarSelect)
+  
   const handleUpdateAvatarSelect = (
     event: React.ChangeEvent<HTMLSelectElement>
   ) => {
     const value = event.target.value;
-    updateAvatarSelect(value || null);
+    updateAvatarSelectEvent(value || null);
   };
 
   return (

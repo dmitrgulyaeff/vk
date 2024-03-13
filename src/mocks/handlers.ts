@@ -1,4 +1,4 @@
-import { DefaultBodyType, HttpResponse, PathParams, delay, http } from 'msw';
+import { HttpResponse, delay, http } from 'msw';
 import groups from './groups.json';
 
 export const handlers = [

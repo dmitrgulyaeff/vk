@@ -41,8 +41,10 @@ export const $uniqGroupsColors = $groups.map((groups) => {
 export const $displayedGroups = createStore<TGroup[]>([]);
 
 // Фильтрация данных отображения при изменении фильтра или данных
+const filterOrGroupsChanged = merge([$filter, $groups])
+
 sample({
-  clock: merge([$filter, $groups]),
+  clock: filterOrGroupsChanged,
   source: { groups: $groups, filter: $filter },
   fn: filterGroups,
   target: $displayedGroups,

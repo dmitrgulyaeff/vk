@@ -1,17 +1,17 @@
-import { EventCallable } from 'effector';
 import { ChangeEvent } from 'react';
 
 type SelectorProps<T> = {
   name: string;
   label: string;
   options: Record<string, T>;
-  handler: EventCallable<T>;
+  handlerEvent: (payload: T) => unknown;
 };
 
-export function Selector<U>({ label, options, handler, name }: SelectorProps<U>) {
+export function Selector<U>({ label, options, handlerEvent, name }: SelectorProps<U>) {
+
   const handleChange = (event: ChangeEvent<HTMLSelectElement>) => {
     const value = event.target.value;
-    handler(options[value]);
+    handlerEvent(options[value]);
   };
 
   return (

@@ -1,4 +1,4 @@
-import { useList } from 'effector-react';
+import { useList, useUnit } from 'effector-react';
 import { useEffect } from 'react';
 import { Group } from '../components/Group/Group';
 import {HeaderFilter} from '../components/HeaderFilter/HeaderFilter';
@@ -6,8 +6,10 @@ import styles from './App.module.css';
 import { $displayedGroups, pageMounted } from './model';
 
 export function App() {
+  const pageMountedEvent = useUnit(pageMounted)
+
   useEffect(() => {
-    pageMounted();
+    pageMountedEvent();
   }, []);
 
   return (

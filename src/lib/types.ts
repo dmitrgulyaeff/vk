@@ -1,12 +1,12 @@
 import { z } from 'zod';
 
-// utils
-type ExcludeUndefined<T> = T extends undefined ? never : T;
 
 type Prettify<T> = {
   [K in keyof T]: T[K];
+// eslint-disable-next-line @typescript-eslint/ban-types
 } & {};
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 type Expect<T extends true> = (<T>() => T extends T ? 1 : 2) extends <
   T
 >() => T extends true ? 1 : 2
@@ -69,8 +69,11 @@ type ZGetGroupsResponse = z.infer<typeof GetGroupsResponseSchema>;
 export type ZValidResponseSchema = z.infer<typeof isValidResponseSchema>;
 
 // check schemas
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 type test_ZUser_equal_User = Expect<Equal<ZUser, TUser>>;
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 type test_ZGroup_equal_Group = Expect<Equal<ZGroup, TGroup>>;
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 type test_ZGetGroupsResponse_equal_GetGroupsResponse = Expect<
   Equal<ZGetGroupsResponse, TGetGroupsResponse>
 >;
