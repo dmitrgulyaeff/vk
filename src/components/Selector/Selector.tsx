@@ -7,8 +7,12 @@ type SelectorProps<T> = {
   handlerEvent: (payload: T) => unknown;
 };
 
-export function Selector<U>({ label, options, handlerEvent, name }: SelectorProps<U>) {
-
+export function Selector<U>({
+  label,
+  options,
+  handlerEvent,
+  name,
+}: SelectorProps<U>) {
   const handleChange = (event: ChangeEvent<HTMLSelectElement>) => {
     const value = event.target.value;
     handlerEvent(options[value]);
@@ -16,14 +20,16 @@ export function Selector<U>({ label, options, handlerEvent, name }: SelectorProp
 
   return (
     <div>
-      <label>{label}</label>
-      <select name={name} onChange={handleChange}>
-        {[...Object.keys(options)].map((value, index) => (
-          <option key={index} value={value}>
-            {value}
-          </option>
-        ))}
-      </select>
+      <label>
+        {label}
+        <select name={name} onChange={handleChange}>
+          {[...Object.keys(options)].map((value, index) => (
+            <option key={index} value={value}>
+              {value}
+            </option>
+          ))}
+        </select>
+      </label>
     </div>
   );
 }
