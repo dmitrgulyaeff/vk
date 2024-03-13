@@ -14,6 +14,12 @@
 - **CSS Modules**: Для изоляции стилей компонентов.
 - **Docker**: Для упаковки приложения в контейнер для упрощения развертывания.
 
+## Приложение
+![скриншот приложения](https://sun9-64.userapi.com/impg/Uf2TSyDTyoNNjIHzdm_7sBf6Qs3TWKEunrvfsw/nh3SSQcH6cg.jpg?size=783x774&quality=96&sign=1fdc4ecd48b443fe9bf4a82ebc6108c0&type=album)
+- При открытии страницы происходит запрос к серверу (моку), который может вовзращать ошибки. В случае ошибки, делается новый запрос через 100мс.
+- Для фильтрации сделаны три селектора в верхней части экрана, которые имзеняют состояние фильтра.
+- Подробная информация об измении состояний и ошибках доступна в консоли:
+![cкриншот консоли](https://sun9-9.userapi.com/impg/C06PVPrt4ic_0ScUYuXEcr7m3KcHWwuoRrmU4Q/Z6NBrVN10eM.jpg?size=717x712&quality=96&sign=85349f2a88764904395d717b3ab21e5d&type=album)
 ## Ознакомиться онлайн: https://vk-sigma.vercel.app
 ![](https://i.gifer.com/origin/68/68f87b37ccfde22769262c7cdc7b2b0b_w200.gif)
 
